@@ -15,8 +15,8 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class ParkingPlaceController {
-    private final ParkingPlaceDto service;
-    public ResponseEntity<List<ParkingPlaceDto>> getAll() {
-List<ParkingPlaceDto> parkingPlaceDtos = service.ge
-    }
+//    private final ParkingPlaceDto service;
+//    public ResponseEntity<List<ParkingPlaceDto>> getAll() {
+//
+//    }
 }
