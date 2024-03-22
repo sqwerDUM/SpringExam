@@ -5,8 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-
 public class ReservationRequestDto {
     private Long parkingSpaceId;
+
 }

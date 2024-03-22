@@ -1,5 +1,6 @@
 package org.example.springexam.service.Impl;
 
+import org.example.springexam.dto.ParkingSpaceCreateRequestDto;
 import org.example.springexam.entity.ParkingSpace;
 import org.example.springexam.dto.ParkingSpaceDto;
 import org.example.springexam.enums.ParkingSpaceStatus;
@@ -34,17 +35,22 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
 
     @Override
     public ParkingSpaceDto reserveParkingSpace(Long id) {
-        Optional<ParkingSpace> optionalParkingSpace = parkingSpaceRepo.findById(id);
-        if (optionalParkingSpace.isPresent()) {
-            ParkingSpace parkingSpace = optionalParkingSpace.get();
-            if (parkingSpace.getStatus() == ParkingSpaceStatus.FREE) {
-                parkingSpace.setStatus(ParkingSpaceStatus.OCCUPIED);
-                ParkingSpace updatedParkingSpace = parkingSpaceRepo.save(parkingSpace);
-                return convertToDto(updatedParkingSpace);
+            Optional<ParkingSpace> optionalParkingSpace = parkingSpaceRepo.findById(id);
+            if (optionalParkingSpace.isPresent()) {
+                ParkingSpace parkingSpace = optionalParkingSpace.get();
+                if (parkingSpace.getStatus() == ParkingSpaceStatus.FREE) {
+                    ParkingSpace newParkingSpace = new ParkingSpace();
+                    newParkingSpace.setSpaceNumber(parkingSpace.getSpaceNumber());
+                    newParkingSpace.setType(parkingSpace.getType());
+                    newParkingSpace.setStatus(ParkingSpaceStatus.OCCUPIED);
+                    ParkingSpace updatedParkingSpace = parkingSpaceRepo.save(newParkingSpace);
+                    return convertToDto(updatedParkingSpace);
+                }
             }
+            return null;
         }
-        return null; // Место уже занято или не найдено
-    }
+
+
 
     @Override
     public ParkingSpaceDto releaseParkingSpace(Long id) {
@@ -57,10 +63,19 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
                 return convertToDto(updatedParkingSpace);
             }
         }
-        return null; // Место уже свободно или не найдено
+        return null;
     }
 
-    // Преобразование сущности в DTO
+    public ParkingSpaceDto createParkingSpace(ParkingSpaceCreateRequestDto requestDto) {
+        ParkingSpace parkingSpace = new ParkingSpace();
+        parkingSpace.setLocation(requestDto.getLocation());
+        parkingSpace.setReserved(false);
+        ParkingSpace savedParkingSpace = parkingSpaceRepo.save(parkingSpace);
+        return new ParkingSpaceDto(savedParkingSpace.getId(), savedParkingSpace.getLocation());
+    }
+
+
+
     private ParkingSpaceDto convertToDto(ParkingSpace parkingSpace) {
         ParkingSpaceDto dto = new ParkingSpaceDto();
         dto.setId(parkingSpace.getId());
@@ -75,5 +90,15 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
         return parkingSpaces.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean deleteParkingSpace(Long id) {
+        Optional<ParkingSpace> optionalParkingSpace = parkingSpaceRepo.findById(id);
+        if (optionalParkingSpace.isPresent()) {
+            parkingSpaceRepo.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

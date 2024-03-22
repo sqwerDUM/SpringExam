@@ -14,5 +14,12 @@ public class ParkingSpaceDto {
     private Long id;
     private String spaceNumber;
     private ParkingSpaceStatus status;
+    private String location;
+
+
+    public ParkingSpaceDto(Long id, String location) {
+        this.id = id;
+        this.location = location;
+    }
 }
 
