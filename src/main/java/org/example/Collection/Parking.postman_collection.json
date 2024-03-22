@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "c160b63d-1b7c-46d9-b823-ff7765ec90f6",
+		"name": "Parking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33010652"
+	},
+	"item": [
+		{
+			"name": "2. AllParkingSpace",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/spaces",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.CreateParkingSpace",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"id\": 1,\r\n    \"spaceNumber\": \"12\",\r\n    \"status\": \"FREE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5.DeletById{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "DELETE http://localhost:8081/parking/delete/1\n",
+					"protocol": "DELETE http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"parking",
+						"delete",
+						"1\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.FindById/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "DELETE http://localhost:8081/api/parking/spaces/1\n",
+					"protocol": "DELETE http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"spaces",
+						"1\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. releaseParkingSpace/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "PUT http://localhost:8081/api/parking/spaces/1",
+					"protocol": "PUT http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"parking",
+						"spaces",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
